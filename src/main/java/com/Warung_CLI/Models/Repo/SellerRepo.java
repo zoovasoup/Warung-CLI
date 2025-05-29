@@ -1,8 +1,10 @@
 package com.Warung_CLI.Models.Repo;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import com.Warung_CLI.Models.Seller;
 import com.Warung_CLI.Models.Seller;
 
 public class SellerRepo implements RepoInterface{
@@ -12,33 +14,43 @@ public class SellerRepo implements RepoInterface{
 	public SellerRepo() {};
 	
 	@Override
-	public Object put(Object object) {
-		// TODO Auto-generated method stub
+	public Seller put(Object seller) {
+		if (seller instanceof Seller) {
+			
+			String id = "U"+String.valueOf(idCounter);
+			database.put(id, (Seller) seller);		
+			return (Seller) seller;
+		}
+		
 		return null;
-	}
-
-	@Override
-	public Object patch(String id, Object object) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Object getById(String id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public List getAll() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public boolean delete(String id) {
-		// TODO Auto-generated method stub
-		return false;
 	}
 	
+	@Override
+	public Seller patch(String id, Object seller) {
+		if (seller instanceof Seller) {
+
+			Seller sellerNew = (Seller) seller;
+			if (database.containsKey(id)) {
+				database.put(id, sellerNew);
+				return (Seller) seller;
+			}
+		}
+		
+		return null;
+	}
+	
+	@Override
+	public Seller getById(String id) {
+		return database.get(id);
+	}
+	
+	@Override
+	public List<Seller> getAll() {
+		return new ArrayList<>(database.values());
+	}
+	
+	@Override
+	public boolean delete(String id) {
+		return database.remove(id) != null;
+	}
 }
