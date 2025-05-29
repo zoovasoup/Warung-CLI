@@ -1,14 +1,16 @@
 package com.Warung_CLI.Models;
 
 public class Product {
+	private String id;
 	private String title;
 	private String description;
 	private double price;
 	private String categories;
 	private int quantity;
-	
-	public Product(String title, String description, double price, String categories, int quantity) {
+
+	public Product(String id, String title, String description, double price, String categories, int quantity) {
 		super();
+		this.id = id;
 		this.title = title;
 		this.description = description;
 		this.price = price;
@@ -55,5 +57,12 @@ public class Product {
 	public void setQuantity(int quantity) {
 		this.quantity = quantity;
 	}
-	
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
 }
