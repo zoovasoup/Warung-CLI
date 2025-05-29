@@ -1,4 +1,4 @@
-package com.Warung_CLI.Models.Repo;
+package com.Warung_CLI.Repo;
 
 import java.util.ArrayList;
 import java.util.HashMap;
