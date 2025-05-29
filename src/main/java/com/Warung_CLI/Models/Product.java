@@ -4,14 +4,16 @@ public class Product {
 	private String title;
 	private String description;
 	private double price;
-	private String Categories;
+	private String categories;
+	private int quantity;
 	
-	public Product(String title, String description, double price, String categories) {
+	public Product(String title, String description, double price, String categories, int quantity) {
 		super();
 		this.title = title;
 		this.description = description;
 		this.price = price;
-		Categories = categories;
+		this.quantity = quantity;
+		this.categories = categories;
 	}
 
 	public String getTitle() {
@@ -39,11 +41,19 @@ public class Product {
 	}
 
 	public String getCategories() {
-		return Categories;
+		return categories;
 	}
 
 	public void setCategories(String categories) {
-		Categories = categories;
+		this.categories = categories;
+	}
+
+	public int getQuantity() {
+		return quantity;
+	}
+
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
 	}
 	
 }

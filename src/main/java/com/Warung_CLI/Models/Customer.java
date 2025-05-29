@@ -7,7 +7,7 @@ public class Customer extends User{
 	private OrderHistory history;
 
 	public Customer(User user) {
-		super(user.getName(), user.getUsername(), user.getEmail(), user.getPassword());
+		super(user.getName(), user.getUsername(), user.getEmail(), user.getPassword(), false);
 	}
 
 	public Cart getCart() {

@@ -6,7 +6,7 @@ public interface RepoInterface<T> {
 
 	T put(T object);
 
-	Object patch(String id, Object object);
+	Object patch(String id, T object);
 
 	Object getById(String id);
 

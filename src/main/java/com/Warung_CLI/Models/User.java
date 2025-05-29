@@ -5,8 +5,9 @@ public class User {
 	private String username;
 	private String email;
 	private String password;
+	private boolean seller;
 	
-	public User(String name, String username, String email, String password) {
+	public User(String name, String username, String email, String password, boolean seller) {
 		super();
 		this.name = name;
 		this.username = username;
@@ -45,5 +46,15 @@ public class User {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+
+	public boolean isSeller() {
+		return seller;
+	}
+
+	public void setSeller(boolean seller) {
+		this.seller = seller;
+	}
+	
+	
 	
 }
