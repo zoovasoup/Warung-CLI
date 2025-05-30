@@ -1,6 +1,8 @@
 package com.Warung_CLI.Services;
 
 import java.util.List;
+import java.util.Map;
+import java.util.AbstractMap.SimpleEntry;
 
 import com.Warung_CLI.Models.Customer;
 import com.Warung_CLI.Models.Seller;
@@ -23,17 +25,31 @@ public class AuthService {
         users.addAll(sellerRepo.getAll());
     }
 
-    public User login(String username, String password) {
+    public Map.Entry<String, User> login(String username, String password) {
         User auth = new User(username, password);
 
-        for (User user : users) {
-            if (user.getUsername().equals(auth.getUsername()) && user.getPassword().equals(auth.getPassword())) {
-                return user;
+        for (Map.Entry<String, Customer> entry : users.entrySet()) {
+            Customer customer = entry.getValue();
+            if (customer.getUsername().equals(username) && customer.getPassword().equals(password)) {
+                return new AbstractMap.SimpleEntry<>(entry.getKey(), customer);
             }
         }
 
         return null;
     }
+
+    // public User login(String username, String password) {
+    // User auth = new User(username, password);
+    //
+    // for (User user : users) {
+    // if (user.getUsername().equals(auth.getUsername()) &&
+    // user.getPassword().equals(auth.getPassword())) {
+    // return user;
+    // }
+    // }
+    //
+    // return null;
+    // }
 
     public boolean register(String name, String username, String password, boolean role) {
         User newUser = new User(name, username, password, role);

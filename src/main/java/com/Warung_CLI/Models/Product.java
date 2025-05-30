@@ -7,6 +7,7 @@ public class Product {
 	private double price;
 	private String categories;
 	private int quantity;
+	private static long idCounter = 1;
 
 	public Product(String id, String title, String description, double price, String categories, int quantity) {
 		super();
@@ -16,6 +17,11 @@ public class Product {
 		this.price = price;
 		this.quantity = quantity;
 		this.categories = categories;
+	}
+
+	public String generateId() {
+		String id = "P" + (idCounter++);
+		return id;
 	}
 
 	public String getTitle() {

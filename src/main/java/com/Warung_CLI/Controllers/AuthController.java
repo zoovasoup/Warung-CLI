@@ -20,11 +20,11 @@ public class AuthController {
         System.out.println("2. Register as Seller");
     }
 
-    public void loginRedirect(User user) {
+    public Object loginRedirect(User user) {
         if (user.isSeller()) {
+            return new SellerController();
         } else {
-            System.out.println("Redirecting to Customer Dashboard...");
+            return new CustomerController();
         }
     }
-
 }

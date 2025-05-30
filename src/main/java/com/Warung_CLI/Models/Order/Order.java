@@ -13,13 +13,19 @@ public class Order {
 	private List<OrderItem> items;
 	private Date orderDate;
 	private boolean isPaid;
+	private static long idCounter = 1;
 
-	public Order(String id, Customer customer) {
-		this.id = id;
+	public Order(Customer customer) {
+		this.id = generateId();
 		this.customer = customer;
 		this.items = new ArrayList<>();
 		this.orderDate = new Date();
 		this.isPaid = false;
+	}
+
+	public String generateId() {
+		String id = "O" + idCounter;
+		return id;
 	}
 
 	public String getId() {

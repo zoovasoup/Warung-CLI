@@ -2,12 +2,18 @@ package com.Warung_CLI.Models;
 
 import com.Warung_CLI.Models.Order.OrderHistory;
 
-public class Customer extends User{
+public class Customer extends User {
 	private Cart cart;
 	private OrderHistory history;
+	private static int idCounter = 1;
 
 	public Customer(User user) {
-		super(user.getName(), user.getUsername(), user.getEmail(), user.getPassword(), false);
+		super(user.getName(), user.getUsername(), user.getPassword(), false);
+		super.setId(generateId());
+	}
+
+	public String generateId() {
+		return "C" + (idCounter++);
 	}
 
 	public Cart getCart() {

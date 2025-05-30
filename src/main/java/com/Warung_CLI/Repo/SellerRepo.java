@@ -16,7 +16,7 @@ public class SellerRepo implements RepoInterface<Seller> {
 	@Override
 	public Seller put(Seller seller) {
 
-		String id = "U" + String.valueOf(idCounter);
+		String id = "S" + String.valueOf(idCounter);
 		database.put(id, (Seller) seller);
 		return (Seller) seller;
 	}

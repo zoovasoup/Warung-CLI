@@ -21,17 +21,7 @@ public class Menu {
         spacer();
         System.out.print("Pilih opsi: ");
 	}
-	
-	public void sellerMenu() {
-        System.out.println("\n==== MENU SELLER ====");
-        System.out.println("1. Lihat semua produk");
-        System.out.println("2. Tambah produk");
-        System.out.println("3. Hapus produk");
-        System.out.println("4. Lihat pesanan dari customer");
-        System.out.println("5. Kembali");
-        spacer();
-        System.out.print("Pilih opsi: ");
-	}
+
 	
 	public void spacer() {
 		System.out.println("=========================");

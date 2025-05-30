@@ -1,10 +1,11 @@
 package com.Warung_CLI.Models;
 
-public class User {
+public abstract class User {
 	private String name;
 	private String username;
 	private String password;
 	private boolean seller;
+	private String id;
 
 	public User(String username, String password) {
 		this.username = username;
@@ -16,6 +17,16 @@ public class User {
 		this.name = name;
 		this.username = username;
 		this.password = password;
+	}
+
+	public abstract String generateId();
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
 	}
 
 	public String getName() {

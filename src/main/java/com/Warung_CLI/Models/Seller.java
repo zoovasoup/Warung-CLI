@@ -6,12 +6,18 @@ public class Seller extends User {
 	private String storeName;
 	private String storeDescription;
 	private ArrayList<Product> products;
+	private static int idCounter = 1;
 
 	public Seller(User user, String storeName, String storeDescription, ArrayList<Product> products) {
-		super(user.getName(), user.getUsername(), user.getEmail(), user.getPassword(), true);
+		super(user.getName(), user.getUsername(), user.getPassword(), true);
 		this.storeName = storeName;
 		this.storeDescription = storeDescription;
 		this.products = products;
+		super.setId(generateId());
+	}
+
+	public String generateId() {
+		return "S" + (idCounter++);
 	}
 
 	public String getStoreName() {
