@@ -5,13 +5,11 @@ import java.util.ArrayList;
 import com.Warung_CLI.Models.Payment.Payment;
 
 public class Cart {
-	private ArrayList<CartItem> items;
-	private int totalPrice;
+	private ArrayList<CartItem> items = new ArrayList<>();
 	private Payment payment;
-	
-	public Cart(ArrayList<CartItem> items, int totalPrice, Payment payment) {
+
+	public Cart(ArrayList<CartItem> items, Payment payment) {
 		this.items = items;
-		this.totalPrice = totalPrice;
 		this.payment = payment;
 	}
 
@@ -24,11 +22,11 @@ public class Cart {
 	}
 
 	public int getTotalPrice() {
+		int totalPrice = 0;
+		for (CartItem item : items) {
+			totalPrice += item.getProduct().getPrice() * item.getQuantity();
+		}
 		return totalPrice;
-	}
-
-	public void setTotalPrice(int totalPrice) {
-		this.totalPrice = totalPrice;
 	}
 
 	public Payment getPayment() {
@@ -38,6 +36,17 @@ public class Cart {
 	public void setPayment(Payment payment) {
 		this.payment = payment;
 	}
-	
-	
+
+	public void addItem(CartItem item) {
+		this.items.add(item);
+	}
+
+	public void clearCart() {
+		this.items.clear();
+	}
+
+	public void removeItem(CartItem item) {
+		this.items.remove(item);
+	}
+
 }

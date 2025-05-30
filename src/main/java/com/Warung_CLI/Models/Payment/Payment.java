@@ -13,7 +13,7 @@ public class Payment {
 
     // Constructor
     public Payment(String orderId, double amount, String method) {
-        this.paymentId = UUID.randomUUID().toString(); // Auto-generate ID
+        this.paymentId = UUID.randomUUID().toString();
         this.orderId = orderId;
         this.amount = amount;
         this.method = method;
@@ -50,7 +50,6 @@ public class Payment {
         this.method = method;
     }
 
-    // Method utama
     public void processPayment() {
         if (amount <= 0) {
             this.status = "FAILED";
@@ -58,7 +57,6 @@ public class Payment {
             return;
         }
 
-        // Simulasi pemrosesan pembayaran
         this.status = "SUCCESS";
         this.paymentDate = LocalDateTime.now();
         System.out.println("Pembayaran berhasil dengan metode: " + method);

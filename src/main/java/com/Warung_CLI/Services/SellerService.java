@@ -13,6 +13,11 @@ public class SellerService {
     private final SellerRepo sellerRepo;
     private final String sellerId;
 
+    public SellerService(SellerRepo sellerRepo) {
+        this.sellerRepo = sellerRepo;
+        this.sellerId = null; // Default constructor without sellerId
+    }
+
     public SellerService(SellerRepo sellerRepo, String sellerId) {
         this.sellerRepo = sellerRepo;
         this.sellerId = sellerId;
