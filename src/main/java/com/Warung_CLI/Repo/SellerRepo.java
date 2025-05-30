@@ -8,16 +8,13 @@ import com.Warung_CLI.Models.Seller;
 
 public class SellerRepo implements RepoInterface<Seller> {
 	private HashMap<String, Seller> database;
-	private long idCounter = 0;
 
 	public SellerRepo() {
 	};
 
 	@Override
 	public Seller put(Seller seller) {
-
-		String id = "S" + String.valueOf(idCounter);
-		database.put(id, (Seller) seller);
+		database.put(seller.getId(), (Seller) seller);
 		return (Seller) seller;
 	}
 
@@ -46,5 +43,9 @@ public class SellerRepo implements RepoInterface<Seller> {
 	@Override
 	public boolean delete(String id) {
 		return database.remove(id) != null;
+	}
+
+	public HashMap<String, Seller> getDatabase() {
+		return this.database;
 	}
 }

@@ -4,30 +4,28 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import com.Warung_CLI.Models.Customer;
 import com.Warung_CLI.Models.User;
 
-public class CustomerRepo implements RepoInterface<User> {
-	private HashMap<String, User> database;
-	private long idCounter = 0;
+public class CustomerRepo implements RepoInterface<Customer> {
+	private HashMap<String, Customer> database;
 
 	public CustomerRepo() {
 	};
 
 	@Override
-	public User put(User user) {
-
-		String id = "U" + String.valueOf(idCounter);
-		database.put(id, (User) user);
-		return (User) user;
+	public Customer put(Customer customer) {
+		database.put(customer.getId(), (Customer) customer);
+		return (Customer) customer;
 	}
 
 	@Override
-	public User patch(String id, User user) {
+	public Customer patch(String id, Customer customer) {
 
-		User userNew = (User) user;
+		Customer userNew = (Customer) customer;
 		if (database.containsKey(id)) {
 			database.put(id, userNew);
-			return (User) user;
+			return (Customer) customer;
 		}
 
 		return null;
@@ -39,7 +37,7 @@ public class CustomerRepo implements RepoInterface<User> {
 	}
 
 	@Override
-	public List<User> getAll() {
+	public List<Customer> getAll() {
 		return new ArrayList<>(database.values());
 	}
 
@@ -48,4 +46,7 @@ public class CustomerRepo implements RepoInterface<User> {
 		return database.remove(id) != null;
 	}
 
+	public HashMap<String, Customer> getDatabase() {
+		return this.database;
+	}
 }

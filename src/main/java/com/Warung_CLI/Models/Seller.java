@@ -8,11 +8,11 @@ public class Seller extends User {
 	private ArrayList<Product> products;
 	private static int idCounter = 1;
 
-	public Seller(User user, String storeName, String storeDescription, ArrayList<Product> products) {
-		super(user.getName(), user.getUsername(), user.getPassword(), true);
+	public Seller(String name, String username, String password, String storeName, String storeDescription) {
+		super(name, username, password, true);
 		this.storeName = storeName;
 		this.storeDescription = storeDescription;
-		this.products = products;
+		this.products = new ArrayList<>();
 		super.setId(generateId());
 	}
 

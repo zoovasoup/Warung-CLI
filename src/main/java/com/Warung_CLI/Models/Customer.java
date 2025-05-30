@@ -7,8 +7,8 @@ public class Customer extends User {
 	private OrderHistory history;
 	private static int idCounter = 1;
 
-	public Customer(User user) {
-		super(user.getName(), user.getUsername(), user.getPassword(), false);
+	public Customer(String name, String username, String password) {
+		super(name, username, password, false);
 		super.setId(generateId());
 	}
 

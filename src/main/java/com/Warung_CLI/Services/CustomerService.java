@@ -21,7 +21,7 @@ public class CustomerService {
     }
 
     public Order checkout(Customer customer, Cart cart) {
-        Order order = new Order(UUID.randomUUID().toString(), customer);
+        Order order = new Order(customer);
 
         for (CartItem cartItem : cart.getItems()) {
             order.addItem(cartItem.getProduct(), cartItem.getQuantity());

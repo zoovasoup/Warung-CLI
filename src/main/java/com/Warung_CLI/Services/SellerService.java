@@ -79,4 +79,8 @@ public class SellerService {
 
         return relevantOrders;
     }
+
+    public String getSellerId() {
+        return sellerId;
+    }
 }

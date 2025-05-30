@@ -11,10 +11,11 @@ import com.Warung_CLI.Services.SellerService;
  */
 public class SellerController {
         private final SellerService sellerService;
-        private String sellerId = null; // Default constructor without sellerId
+        private String sellerId = null;
 
         public SellerController(SellerService sellerService) {
                 this.sellerService = sellerService;
+                this.sellerId = sellerService.getSellerId();
         }
 
         public void sellerRoute(Seller seller) {
@@ -35,10 +36,10 @@ public class SellerController {
                                         break;
                                 case 3:
                                         Product product2 = new Product("", "", "", 0.0, "", 0); // Create a new Product
-                                        sellerService.deleteProduct(product.getId());
+                                        sellerService.deleteProduct(product2.getId());
                                         break;
                                 case 4:
-                                        sellerService.getOrdersForSeller();
+                                        // sellerService.getOrdersForSeller();
                                         break;
                                 case 5:
                                         System.out.println("Kembali ke menu utama.");

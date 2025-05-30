@@ -8,16 +8,13 @@ import com.Warung_CLI.Models.Order.Order;
 
 public class OrderRepo implements RepoInterface<Order> {
 	private HashMap<String, Order> database;
-	private long idCounter = 0;
 
 	public OrderRepo() {
 	};
 
 	@Override
 	public Order put(Order order) {
-
-		String id = "O" + String.valueOf(idCounter);
-		database.put(id, (Order) order);
+		database.put(order.getId(), (Order) order);
 		return (Order) order;
 	}
 

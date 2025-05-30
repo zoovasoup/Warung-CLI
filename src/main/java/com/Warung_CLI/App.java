@@ -29,7 +29,7 @@ public class App {
 
         AuthController authController = new AuthController();
         CustomerController customerController = new CustomerController();
-        SellerController sellerController = new SellerController();
+        SellerController sellerController = new SellerController(sellerService);
 
         String username = "testUser";
         String password = "testPass";
