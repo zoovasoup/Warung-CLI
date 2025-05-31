@@ -45,9 +45,19 @@ public class App {
             User user = authController.authRoute();
 
             if (user instanceof Customer) {
+                System.out.println("masuk customer");
+                Customer customer = (Customer) user;
+
+                // TODO: delete this sysout
+                System.out.println(customer.toString());
+                break;
 
             } else if (user instanceof Seller) {
-                System.out.println("masuk sini");
+                System.out.println("masuk seller");
+                Seller seller = (Seller) user;
+
+                // TODO: delete this sysout
+                System.out.println(seller.toString());
                 break;
             }
         }

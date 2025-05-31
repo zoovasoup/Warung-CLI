@@ -24,30 +24,16 @@ public class AuthController {
     }
 
     public User authRoute() {
-        Scanner scanner = new Scanner(System.in);
-        while (true) {
-            int choice = scanner.nextInt();
-            switch (choice) {
-                case 1: // Login
-                    return loginRoute();
-                case 2: // Register
-                    // return registerRoute();
-                case 3: // Exit
-                    System.out.println("Exiting...");
-                    return null;
-                default:
-                    System.out.println("Invalid choice, please try again.");
-            }
-        }
+        return loginRoute();
     }
 
     public User loginRoute() {
-        System.out.println("Welcome to the Login Menu");
-        System.out.println("1. Login as Customer");
-        System.out.println("2. Login as Seller");
-        System.out.println("3. Exit");
-
         while (true) {
+            System.out.println("Welcome to the Login Menu");
+            System.out.println("1. Login as Customer");
+            System.out.println("2. Login as Seller");
+            System.out.println("3. Exit");
+
             Scanner scanner = new Scanner(System.in);
             int choice = scanner.nextInt();
             scanner.nextLine();
@@ -58,8 +44,9 @@ public class AuthController {
                     String customerUsername = scanner.nextLine();
                     System.out.print("Enter password: ");
                     String customerPassword = scanner.nextLine();
-                    User customer = authService.login(customerUsername, customerPassword);
-                    if (customer != null && !customer.isSeller()) {
+
+                    User customer = authService.loginCustomer(customerUsername, customerPassword);
+                    if (customer != null && customer instanceof Customer) {
                         return customer;
                     } else {
                         System.out.println("Invalid credentials or not a customer.");
@@ -71,8 +58,9 @@ public class AuthController {
                     String sellerUsername = scanner.nextLine();
                     System.out.print("Enter password: ");
                     String sellerPassword = scanner.nextLine();
-                    User seller = authService.login(sellerUsername, sellerPassword);
-                    if (seller != null && seller.isSeller()) {
+
+                    User seller = authService.loginSeller(sellerUsername, sellerPassword);
+                    if (seller != null && seller instanceof Seller) {
                         return seller;
                     } else {
                         System.out.println("Invalid credentials or not a seller.");

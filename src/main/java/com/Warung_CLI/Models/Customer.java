@@ -31,4 +31,10 @@ public class Customer extends User {
 	public void setHistory(OrderHistory history) {
 		this.history = history;
 	}
+
+	@Override
+	public String toString() {
+		return super.toString() + "Customer [cart=" + cart + ", history=" + history + "]";
+	}
+
 }

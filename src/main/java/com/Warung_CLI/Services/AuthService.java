@@ -15,23 +15,27 @@ import com.Warung_CLI.Repo.SellerRepo;
 public class AuthService {
     private final SellerRepo sellerRepo;
     private final CustomerRepo customerRepo;
-    private final ArrayList<User> users = new ArrayList<>();
 
     public AuthService(CustomerRepo customerRepo, SellerRepo sellerRepo) {
         this.customerRepo = customerRepo;
         this.sellerRepo = sellerRepo;
-        users.addAll(customerRepo.getAll());
-        users.addAll(sellerRepo.getAll());
     }
 
-    public User login(String username, String password) {
-
-        for (User user : users) {
+    public User loginSeller(String username, String password) {
+        for (User user : sellerRepo.getAll()) {
             if (user.getUsername().equals(username) && user.getPassword().equals(password)) {
                 return user;
             }
         }
+        return null;
+    }
 
+    public User loginCustomer(String username, String password) {
+        for (User user : customerRepo.getAll()) {
+            if (user.getUsername().equals(username) && user.getPassword().equals(password)) {
+                return user;
+            }
+        }
         return null;
     }
 

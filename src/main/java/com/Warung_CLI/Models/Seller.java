@@ -50,7 +50,8 @@ public class Seller extends User {
 
 	@Override
 	public String toString() {
-		return "Seller [storeName=" + storeName + ", storeDescription=" + storeDescription + ", products=" + products
+		return super.toString() + "Seller [storeName=" + storeName + ", storeDescription=" + storeDescription
+				+ ", products=" + products
 				+ "]";
 	}
 }

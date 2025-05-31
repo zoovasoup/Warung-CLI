@@ -61,4 +61,9 @@ public abstract class User {
 		this.seller = seller;
 	}
 
+	@Override
+	public String toString() {
+		return "User [name=" + name + ", username=" + username + ", password=" + password + "]";
+	}
+
 }
