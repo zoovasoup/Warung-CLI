@@ -111,8 +111,11 @@ public class SellerController {
     }
 
     private void deleteProductMenu() {
+        Scanner scanner = new Scanner(System.in);
         System.out.println("\n==== HAPUS PRODUK ====");
         System.out.print("Masukkan ID produk yang ingin dihapus: ");
+        String productId = scanner.nextLine();
+        sellerService.deleteProduct(productId);
         // Add logic to read product ID
         // Logic to delete the product using sellerService
     }
