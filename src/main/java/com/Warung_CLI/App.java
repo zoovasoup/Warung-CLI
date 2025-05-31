@@ -1,5 +1,7 @@
 package com.Warung_CLI;
 
+import java.util.Scanner;
+
 import com.Warung_CLI.Controllers.AuthController;
 import com.Warung_CLI.Controllers.CustomerController;
 import com.Warung_CLI.Controllers.SellerController;
@@ -35,30 +37,21 @@ public class App {
         CustomerService customerService = new CustomerService(customerRepo);
         SellerService sellerService = new SellerService(sellerRepo, orderRepo);
 
-        AuthController authController = new AuthController();
+        AuthController authController = new AuthController(authService, sellerRepo, customerRepo);
         CustomerController customerController = new CustomerController();
         SellerController sellerController = new SellerController(sellerService);
 
-        String username = "testUser";
-        String password = "testPass";
-
         while (true) {
-            authController.loginMenu();
-            int choice = 1;
-            switch (choice) {
-                case 1:
-                    User user = authService.login(username, password);
-                    if (user instanceof Customer) {
-                        sellerController.sellerRoute((Seller) user);
-                    } else {
-                        // customerController.customerRoute((Customer) user);
-                    }
+            User user = authController.authRoute();
 
-                case 3: // Exit
-                    return;
-                default:
-                    System.out.println("Invalid choice, please try again.");
+            if (user instanceof Customer) {
+
+            } else if (user instanceof Seller) {
+                System.out.println("masuk sini");
+                break;
             }
         }
+
+        System.out.println("thankyou for using our application!");
     }
 }
