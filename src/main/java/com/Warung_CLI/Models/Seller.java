@@ -44,6 +44,10 @@ public class Seller extends User {
 		this.products = products;
 	}
 
+	public void addProduct(Product product) {
+		this.products.add(product);
+	}
+
 	@Override
 	public String toString() {
 		return "Seller [storeName=" + storeName + ", storeDescription=" + storeDescription + ", products=" + products

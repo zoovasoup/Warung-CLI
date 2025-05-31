@@ -11,6 +11,7 @@ public class CustomerRepo implements RepoInterface<Customer> {
 	private HashMap<String, Customer> database;
 
 	public CustomerRepo() {
+		database = new HashMap<>();
 	};
 
 	@Override

@@ -10,6 +10,7 @@ public class SellerRepo implements RepoInterface<Seller> {
 	private HashMap<String, Seller> database;
 
 	public SellerRepo() {
+		database = new HashMap<>();
 	};
 
 	@Override

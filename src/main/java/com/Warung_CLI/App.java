@@ -9,6 +9,8 @@ import com.Warung_CLI.Models.User;
 import com.Warung_CLI.Repo.CustomerRepo;
 import com.Warung_CLI.Repo.OrderRepo;
 import com.Warung_CLI.Repo.SellerRepo;
+import com.Warung_CLI.Repo.Data.CustomerData;
+import com.Warung_CLI.Repo.Data.SellerData;
 import com.Warung_CLI.Services.AuthService;
 import com.Warung_CLI.Services.CustomerService;
 import com.Warung_CLI.Services.SellerService;
@@ -22,6 +24,12 @@ public class App {
         CustomerRepo customerRepo = new CustomerRepo();
         SellerRepo sellerRepo = new SellerRepo();
         OrderRepo orderRepo = new OrderRepo();
+
+        CustomerData customerData = new CustomerData();
+        SellerData sellerData = new SellerData();
+
+        customerData.injectCustomer(customerRepo);
+        sellerData.injectSeller(sellerRepo);
 
         AuthService authService = new AuthService(customerRepo, sellerRepo);
         CustomerService customerService = new CustomerService(customerRepo);

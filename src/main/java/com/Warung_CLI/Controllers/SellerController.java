@@ -32,7 +32,7 @@ public class SellerController {
 
                 case 2: // Add a new product
                     addProductMenu();
-                    Product product = new Product("", "", "", 0.0, "", 0); // Create a new Product
+                    Product product = new Product("", "", 0.0, "", 0); // Create a new Product
                     sellerService.addProduct(product);
                     break;
 
