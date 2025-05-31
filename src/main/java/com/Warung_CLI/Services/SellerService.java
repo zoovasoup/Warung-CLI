@@ -12,19 +12,12 @@ import com.Warung_CLI.Repo.SellerRepo;
 
 public class SellerService {
     private final SellerRepo sellerRepo;
-    private final String sellerId;
+    private String sellerId;
     private final OrderRepo orderRepo;
 
     public SellerService(SellerRepo sellerRepo, OrderRepo orderRepo) {
         this.sellerRepo = sellerRepo;
         this.orderRepo = orderRepo;
-        this.sellerId = null; // Default constructor without sellerId
-    }
-
-    public SellerService(SellerRepo sellerRepo, String sellerId) {
-        this.sellerRepo = sellerRepo;
-        this.orderRepo = null; // Default constructor without orderRepo
-        this.sellerId = sellerId;
     }
 
     public ArrayList<Product> getAllProduct() {
@@ -86,5 +79,9 @@ public class SellerService {
 
     public String getSellerId() {
         return sellerId;
+    }
+
+    public void setSellerId(String sellerId) {
+        this.sellerId = sellerId;
     }
 }

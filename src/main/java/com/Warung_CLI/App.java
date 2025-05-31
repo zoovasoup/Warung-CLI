@@ -58,6 +58,8 @@ public class App {
 
                 // TODO: delete this sysout
                 System.out.println(seller.toString());
+
+                sellerController.sellerRoute(seller);
                 break;
             }
         }

@@ -1,5 +1,6 @@
 package com.Warung_CLI.Controllers;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import com.Warung_CLI.Models.Product;
@@ -19,29 +20,31 @@ public class SellerController {
     }
 
     public void sellerRoute(Seller seller) {
+        sellerService.setSellerId(seller.getId());
         Scanner sc = new Scanner(System.in);
-        this.sellerId = seller.getId(); // Assuming Seller has a method getId()
+        this.sellerId = seller.getId();
+
         while (true) {
             sellerMenu();
             int choice = sc.nextInt();
-            sc.nextLine(); // Consume newline character
+            sc.nextLine();
             switch (choice) {
-                case 1: // View all products
-                    sellerService.getAllProduct();
+                case 1:
+                    ArrayList<Product> allProduct = sellerService.getAllProduct();
+                    for (Product product : allProduct) {
+                        System.out.println(product.toString());
+                    }
                     break;
 
-                case 2: // Add a new product
+                case 2:
                     addProductMenu();
-                    Product product = new Product("", "", 0.0, "", 0); // Create a new Product
-                    sellerService.addProduct(product);
                     break;
 
-                case 3: // Delete a product
-                    Product product2 = new Product("", "", "", 0.0, "", 0); // Create a new Product
-                    sellerService.deleteProduct(product2.getId());
+                case 3:
+                    deleteProductMenu();
                     break;
 
-                case 4: // View orders from customers
+                case 4:
                     for (Order order : sellerService.getOrdersForSeller()) {
                         System.out.println(order.toString());
                     }
@@ -55,7 +58,11 @@ public class SellerController {
         }
     }
 
-    public void sellerMenu() {
+    public void addProduct() {
+        addProductMenu();
+    }
+
+    private void sellerMenu() {
         System.out.println("\n==== MENU SELLER ====");
         System.out.println("1. Lihat semua produk");
         System.out.println("2. Tambah produk");
@@ -65,18 +72,45 @@ public class SellerController {
         System.out.print("Pilih opsi: ");
     }
 
-    public void addProductMenu() {
+    private void addProductMenu() {
+        Scanner scanner = new Scanner(System.in);
+
         System.out.println("\n==== TAMBAH PRODUK ====");
         System.out.print("Masukkan nama produk: ");
-        // Add logic to read product name
-        System.out.print("Masukkan harga produk: ");
-        // Add logic to read product price
+        String name = scanner.nextLine();
+
         System.out.print("Masukkan deskripsi produk: ");
-        // Add logic to read product description
-        // Logic to add the product using sellerService
+        String description = scanner.nextLine();
+
+        System.out.print("Masukkan harga produk: ");
+        double price = 0;
+        try {
+            price = Double.parseDouble(scanner.nextLine());
+        } catch (NumberFormatException e) {
+            System.out.println("Harga tidak valid. Produk tidak ditambahkan.");
+            return;
+        }
+
+        System.out.print("Masukkan kategori produk: ");
+        String category = scanner.nextLine();
+
+        System.out.print("Masukkan stok produk: ");
+        int stock = 0;
+        try {
+            stock = Integer.parseInt(scanner.nextLine());
+        } catch (NumberFormatException e) {
+            System.out.println("Stok tidak valid. Produk tidak ditambahkan.");
+            return;
+        }
+
+        Product newProduct = new Product(name, description, price, category, stock);
+        sellerService.addProduct(newProduct);
+
+        System.out.println("Produk berhasil ditambahkan:");
+        System.out.println(newProduct);
     }
 
-    public void deleteProductMenu() {
+    private void deleteProductMenu() {
         System.out.println("\n==== HAPUS PRODUK ====");
         System.out.print("Masukkan ID produk yang ingin dihapus: ");
         // Add logic to read product ID
