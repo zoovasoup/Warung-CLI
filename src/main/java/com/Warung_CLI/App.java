@@ -25,7 +25,7 @@ public class App {
 
         AuthService authService = new AuthService(customerRepo, sellerRepo);
         CustomerService customerService = new CustomerService(customerRepo);
-        SellerService sellerService = new SellerService(sellerRepo);
+        SellerService sellerService = new SellerService(sellerRepo, orderRepo);
 
         AuthController authController = new AuthController();
         CustomerController customerController = new CustomerController();
@@ -38,12 +38,12 @@ public class App {
             authController.loginMenu();
             int choice = 1;
             switch (choice) {
-                case 1: 
+                case 1:
                     User user = authService.login(username, password);
-                    if ( user instanceof Customer) {
-                    	sellerController.sellerRoute();
+                    if (user instanceof Customer) {
+                        sellerController.sellerRoute((Seller) user);
                     } else {
-                    	customerController.customerRoute()
+                        // customerController.customerRoute((Customer) user);
                     }
 
                 case 3: // Exit

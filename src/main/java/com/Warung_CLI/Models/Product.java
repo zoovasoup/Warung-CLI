@@ -9,6 +9,9 @@ public class Product {
 	private int quantity;
 	private static long idCounter = 1;
 
+	public Product() {
+	}
+
 	public Product(String id, String title, String description, double price, String categories, int quantity) {
 		super();
 		this.id = id;
@@ -70,5 +73,11 @@ public class Product {
 
 	public void setId(String id) {
 		this.id = id;
+	}
+
+	@Override
+	public String toString() {
+		return "id: " + id + ", title: " + title + ", description: " + description + ", price: " + price
+				+ ", categories: " + categories + ", quantity: " + quantity;
 	}
 }

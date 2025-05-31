@@ -7,19 +7,23 @@ import com.Warung_CLI.Models.Product;
 import com.Warung_CLI.Models.Seller;
 import com.Warung_CLI.Models.Order.Order;
 import com.Warung_CLI.Models.Order.OrderItem;
+import com.Warung_CLI.Repo.OrderRepo;
 import com.Warung_CLI.Repo.SellerRepo;
 
 public class SellerService {
     private final SellerRepo sellerRepo;
     private final String sellerId;
+    private final OrderRepo orderRepo;
 
-    public SellerService(SellerRepo sellerRepo) {
+    public SellerService(SellerRepo sellerRepo, OrderRepo orderRepo) {
         this.sellerRepo = sellerRepo;
+        this.orderRepo = orderRepo;
         this.sellerId = null; // Default constructor without sellerId
     }
 
     public SellerService(SellerRepo sellerRepo, String sellerId) {
         this.sellerRepo = sellerRepo;
+        this.orderRepo = null; // Default constructor without orderRepo
         this.sellerId = sellerId;
     }
 
@@ -58,7 +62,7 @@ public class SellerService {
         }
     }
 
-    public List<Order> getOrdersForSeller(List<Order> allOrders) {
+    public ArrayList<Order> getOrdersForSeller() {
         ArrayList<Product> sellerProducts = getAllProduct();
         List<String> sellerProductIds = new ArrayList<>();
 
@@ -66,9 +70,9 @@ public class SellerService {
             sellerProductIds.add(p.getId());
         }
 
-        List<Order> relevantOrders = new ArrayList<>();
+        ArrayList<Order> relevantOrders = new ArrayList<>();
 
-        for (Order order : allOrders) {
+        for (Order order : orderRepo.getAll()) {
             for (OrderItem item : order.getItems()) {
                 if (sellerProductIds.contains(item.getProduct().getId())) {
                     relevantOrders.add(order);

@@ -18,9 +18,14 @@ public class OrderItem {
 	public int getQuantity() {
 		return quantity;
 	}
-	
+
 	public double getTotalPrice() {
 		return quantity * product.getPrice();
+	}
+
+	@Override
+	public String toString() {
+		return "Product: " + product.getTitle() + ", Quantity: " + quantity + ", Total Price: " + getTotalPrice();
 	}
 
 }

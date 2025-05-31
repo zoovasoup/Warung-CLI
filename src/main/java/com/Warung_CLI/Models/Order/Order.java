@@ -63,4 +63,11 @@ public class Order {
 		}
 		return total;
 	}
+
+	@Override
+	public String toString() {
+		return "id: " + id + ", customer: " + customer + ", items: " + items + ", orderDate: " + orderDate
+				+ ", isPaid: " + isPaid;
+	}
+
 }
