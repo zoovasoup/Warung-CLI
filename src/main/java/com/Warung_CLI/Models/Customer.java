@@ -1,10 +1,11 @@
 package com.Warung_CLI.Models;
 
+import com.Warung_CLI.Models.Order.Order;
 import com.Warung_CLI.Models.Order.OrderHistory;
 
 public class Customer extends User {
 	private Cart cart;
-	private OrderHistory history;
+	private OrderHistory history = new OrderHistory();
 	private static int idCounter = 1;
 
 	public Customer(String name, String username, String password) {
@@ -28,8 +29,15 @@ public class Customer extends User {
 		return history;
 	}
 
-	public void setHistory(OrderHistory history) {
-		this.history = history;
+	public void addOrder(Order order) {
+		this.history.add(order);
+		;
+	}
+
+	public void clearCart() {
+		if (cart != null) {
+			cart.clearCart();
+		}
 	}
 
 	@Override

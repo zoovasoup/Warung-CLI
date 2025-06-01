@@ -4,21 +4,22 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import com.Warung_CLI.Models.CartItem;
 import com.Warung_CLI.Models.Customer;
 import com.Warung_CLI.Models.Product;
 
 public class Order {
 	private String id;
 	private Customer customer;
-	private List<OrderItem> items;
+	private List<CartItem> items;
 	private Date orderDate;
 	private boolean isPaid;
 	private static long idCounter = 1;
 
-	public Order(Customer customer) {
+	public Order(Customer customer, ArrayList<CartItem> items) {
 		this.id = generateId();
 		this.customer = customer;
-		this.items = new ArrayList<>();
+		this.items = items;
 		this.orderDate = new Date();
 		this.isPaid = false;
 	}

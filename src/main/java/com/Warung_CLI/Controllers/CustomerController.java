@@ -14,18 +14,19 @@ public class CustomerController {
     }
 
     public void customerRoute(Customer customer) {
-        cus
 
     }
 
     public void customerMenu() {
         System.out.println("\n==== MENU CUSTOMER ====");
-        System.out.println("1. Lihat list produk");
-        System.out.println("2. Tambah ke keranjang");
-        System.out.println("3. Lihat keranjang");
-        System.out.println("4. Checkout");
-        System.out.println("5. Riwayat pesanan");
-        System.out.println("6. Kembali");
+        System.out.println("1. Lihat semua produk");
+        System.out.println("2. Cari produk");
+        System.out.println("3. Tambah produk ke keranjang");
+        System.out.println("4. Lihat keranjang");
+        System.out.println("5. Hapus produk dari keranjang");
+        System.out.println("6. Checkout");
+        System.out.println("7. Lihat riwayat pesanan");
+        System.out.println("8. Kembali ke menu utama");
         System.out.print("Pilih opsi: ");
     }
 
