@@ -34,7 +34,7 @@ public class App {
         sellerData.injectSeller(sellerRepo);
 
         AuthService authService = new AuthService(customerRepo, sellerRepo);
-        CustomerService customerService = new CustomerService(customerRepo);
+        CustomerService customerService = new CustomerService(customerRepo, sellerRepo);
         SellerService sellerService = new SellerService(sellerRepo, orderRepo);
 
         AuthController authController = new AuthController(authService, sellerRepo, customerRepo);
