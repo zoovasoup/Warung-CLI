@@ -24,7 +24,39 @@ public class AuthController {
     }
 
     public User authRoute() {
-        return loginRoute();
+        while (true) {
+            System.out.println("Welcome to the Authentication Menu");
+            System.out.println("1. Login");
+            System.out.println("2. Register");
+            System.out.println("3. Exit");
+
+            Scanner scanner = new Scanner(System.in);
+            int choice = scanner.nextInt();
+            scanner.nextLine(); // Consume newline character
+
+            switch (choice) {
+                case 1: // Login
+                    User user = loginRoute();
+                    if (user != null) {
+                        return user;
+                    }
+                    break;
+
+                case 2: // Register
+                    User newUser = registerRoute();
+                    if (newUser != null) {
+                        return newUser;
+                    }
+                    break;
+
+                case 3: // Exit
+                    System.out.println("Exiting...");
+                    return null;
+
+                default:
+                    System.out.println("Invalid choice, please try again.");
+            }
+        }
     }
 
     public User loginRoute() {

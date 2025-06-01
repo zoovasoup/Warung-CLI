@@ -38,7 +38,7 @@ public class App {
         SellerService sellerService = new SellerService(sellerRepo, orderRepo);
 
         AuthController authController = new AuthController(authService, sellerRepo, customerRepo);
-        CustomerController customerController = new CustomerController();
+        CustomerController customerController = new CustomerController(customerService);
         SellerController sellerController = new SellerController(sellerService);
 
         while (true) {
@@ -50,6 +50,8 @@ public class App {
 
                 // TODO: delete this sysout
                 System.out.println(customer.toString());
+
+                customerController.customerRoute(customer);
                 break;
 
             } else if (user instanceof Seller) {

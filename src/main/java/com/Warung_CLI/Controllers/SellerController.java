@@ -20,7 +20,6 @@ public class SellerController {
     }
 
     public void sellerRoute(Seller seller) {
-        sellerService.setSellerId(seller.getId());
         Scanner sc = new Scanner(System.in);
         this.sellerId = seller.getId();
 
@@ -30,7 +29,7 @@ public class SellerController {
             sc.nextLine();
             switch (choice) {
                 case 1:
-                    ArrayList<Product> allProduct = sellerService.getAllProduct();
+                    ArrayList<Product> allProduct = sellerService.getAllProduct(sellerId);
                     for (Product product : allProduct) {
                         System.out.println(product.toString());
                     }
@@ -45,7 +44,7 @@ public class SellerController {
                     break;
 
                 case 4:
-                    for (Order order : sellerService.getOrdersForSeller()) {
+                    for (Order order : sellerService.getOrdersForSeller(sellerId)) {
                         System.out.println(order.toString());
                     }
                     break;
@@ -104,7 +103,7 @@ public class SellerController {
         }
 
         Product newProduct = new Product(name, description, price, category, stock);
-        sellerService.addProduct(newProduct);
+        sellerService.addProduct(sellerId, newProduct);
 
         System.out.println("Produk berhasil ditambahkan:");
         System.out.println(newProduct);
@@ -115,7 +114,7 @@ public class SellerController {
         System.out.println("\n==== HAPUS PRODUK ====");
         System.out.print("Masukkan ID produk yang ingin dihapus: ");
         String productId = scanner.nextLine();
-        sellerService.deleteProduct(productId);
+        sellerService.deleteProduct(sellerId, productId);
         // Add logic to read product ID
         // Logic to delete the product using sellerService
     }

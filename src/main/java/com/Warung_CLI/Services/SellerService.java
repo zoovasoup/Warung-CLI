@@ -12,7 +12,6 @@ import com.Warung_CLI.Repo.SellerRepo;
 
 public class SellerService {
     private final SellerRepo sellerRepo;
-    private String sellerId;
     private final OrderRepo orderRepo;
 
     public SellerService(SellerRepo sellerRepo, OrderRepo orderRepo) {
@@ -20,7 +19,7 @@ public class SellerService {
         this.orderRepo = orderRepo;
     }
 
-    public ArrayList<Product> getAllProduct() {
+    public ArrayList<Product> getAllProduct(String sellerId) {
         Seller seller = sellerRepo.getById(sellerId);
 
         if (seller != null) {
@@ -31,7 +30,7 @@ public class SellerService {
         return new ArrayList<>();
     }
 
-    public void addProduct(Product product) {
+    public void addProduct(String sellerId, Product product) {
         Seller seller = sellerRepo.getById(sellerId);
         ArrayList<Product> products = seller.getProducts();
 
@@ -43,7 +42,7 @@ public class SellerService {
         }
     }
 
-    public void deleteProduct(String productId) {
+    public void deleteProduct(String sellerId, String productId) {
         Seller seller = sellerRepo.getById(sellerId);
         ArrayList<Product> products = seller.getProducts();
 
@@ -55,8 +54,8 @@ public class SellerService {
         }
     }
 
-    public ArrayList<Order> getOrdersForSeller() {
-        ArrayList<Product> sellerProducts = getAllProduct();
+    public ArrayList<Order> getOrdersForSeller(String sellerId) {
+        ArrayList<Product> sellerProducts = getAllProduct(sellerId);
         List<String> sellerProductIds = new ArrayList<>();
 
         for (Product p : sellerProducts) {
@@ -75,13 +74,5 @@ public class SellerService {
         }
 
         return relevantOrders;
-    }
-
-    public String getSellerId() {
-        return sellerId;
-    }
-
-    public void setSellerId(String sellerId) {
-        this.sellerId = sellerId;
     }
 }
