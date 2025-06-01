@@ -12,6 +12,7 @@ import com.Warung_CLI.Models.Seller;
 import com.Warung_CLI.Models.User;
 import com.Warung_CLI.Models.Order.Order;
 import com.Warung_CLI.Repo.CustomerRepo;
+import com.Warung_CLI.Repo.OrderRepo;
 import com.Warung_CLI.Repo.SellerRepo;
 
 /**
@@ -20,10 +21,12 @@ import com.Warung_CLI.Repo.SellerRepo;
 public class CustomerService {
     private final CustomerRepo customerRepo;
     private final SellerRepo sellerRepo;
+    private final OrderRepo orderRepo;
 
-    public CustomerService(CustomerRepo customerRepo, SellerRepo sellerRepo) {
+    public CustomerService(CustomerRepo customerRepo, SellerRepo sellerRepo, OrderRepo orderRepo) {
         this.customerRepo = customerRepo;
         this.sellerRepo = sellerRepo;
+        this.orderRepo = orderRepo;
     }
 
     public ArrayList<Product> getAllProducts() {
@@ -38,9 +41,14 @@ public class CustomerService {
     }
 
     public void addToCart(Customer customer, Product product, int quantity) {
+
         if (product.getQuantity() < quantity) {
             System.out.println("Stok tidak cukup untuk produk: " + product.getTitle());
             return;
+        }
+
+        if (customer.getCart() == null) {
+            customer.setCart(new Cart());
         }
 
         Cart cart = customer.getCart();
@@ -76,15 +84,29 @@ public class CustomerService {
             System.out.printf("- %s: %d pcs, Total: %.2f%n", item.getProduct().getTitle(), item.getQuantity(),
                     item.getTotalPrice());
         }
-        System.out.printf("Total harga: %.2f%n", cart.getTotalPrice());
+        System.out.printf("Total harga: %d%n", cart.getTotalPrice());
     }
 
     public void removeFromCart(Customer customer, String productId) {
         Cart cart = customer.getCart();
-        boolean removed = cart.getItems().removeIf(item -> item.getProduct().getId().equals(productId));
 
-        if (removed) {
-            System.out.println("Produk dengan ID " + productId + " telah dihapus dari keranjang belanja Anda.");
+        CartItem toRemove = null;
+        for (CartItem item : cart.getItems()) {
+            if (item.getProduct().getId().equals(productId)) {
+                // Tambahkan stok kembali ke produk aslinya
+                Product product = item.getProduct();
+                int quantity = item.getQuantity();
+                product.setQuantity(product.getQuantity() + quantity);
+
+                toRemove = item;
+                break;
+            }
+        }
+
+        if (toRemove != null) {
+            cart.removeItem(toRemove);
+            System.out
+                    .println("Produk dengan ID " + productId + " telah dihapus dari keranjang dan stok dikembalikan.");
         } else {
             System.out.println("Produk dengan ID " + productId + " tidak ditemukan di keranjang belanja Anda.");
         }
@@ -101,6 +123,8 @@ public class CustomerService {
         order.setPaid(true);
         customer.addOrder(order);
         customer.clearCart();
+        orderRepo.put(order);
+
         System.out.println("Checkout berhasil! Pesanan ID: " + order.getId());
         return order;
     }

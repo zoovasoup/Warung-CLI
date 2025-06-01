@@ -1,7 +1,5 @@
 package com.Warung_CLI;
 
-import java.util.Scanner;
-
 import com.Warung_CLI.Controllers.AuthController;
 import com.Warung_CLI.Controllers.CustomerController;
 import com.Warung_CLI.Controllers.SellerController;
@@ -34,38 +32,37 @@ public class App {
         sellerData.injectSeller(sellerRepo);
 
         AuthService authService = new AuthService(customerRepo, sellerRepo);
-        CustomerService customerService = new CustomerService(customerRepo, sellerRepo);
+        CustomerService customerService = new CustomerService(customerRepo, sellerRepo, orderRepo);
         SellerService sellerService = new SellerService(sellerRepo, orderRepo);
 
         AuthController authController = new AuthController(authService, sellerRepo, customerRepo);
         CustomerController customerController = new CustomerController(customerService);
         SellerController sellerController = new SellerController(sellerService);
 
-        while (true) {
+        mainMenu(authController, customerController, sellerController);
+
+    }
+
+    private static void mainMenu(AuthController authController, CustomerController customerController,
+            SellerController sellerController) {
+        boolean running = true;
+
+        while (running) {
             User user = authController.authRoute();
 
-            if (user instanceof Customer) {
-                System.out.println("masuk customer");
+            if (user == null) {
+                // User memilih Exit dari authRoute()
+                running = false;
+                System.out.println("Terima kasih telah menggunakan aplikasi!");
+            } else if (user instanceof Customer) {
                 Customer customer = (Customer) user;
-
-                // TODO: delete this sysout
-                System.out.println(customer.toString());
-
                 customerController.customerRoute(customer);
-                break;
-
+                // Setelah route selesai, akan otomatis loop ulang ke authRoute()
             } else if (user instanceof Seller) {
-                System.out.println("masuk seller");
                 Seller seller = (Seller) user;
-
-                // TODO: delete this sysout
-                System.out.println(seller.toString());
-
                 sellerController.sellerRoute(seller);
-                break;
+                // Setelah route selesai, akan otomatis loop ulang ke authRoute()
             }
         }
-
-        System.out.println("thankyou for using our application!");
     }
 }

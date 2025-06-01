@@ -11,7 +11,7 @@ import com.Warung_CLI.Models.Product;
 public class Order {
 	private String id;
 	private Customer customer;
-	private List<CartItem> items;
+	private List<OrderItem> items;
 	private Date orderDate;
 	private boolean isPaid;
 	private static long idCounter = 1;
@@ -19,7 +19,13 @@ public class Order {
 	public Order(Customer customer, ArrayList<CartItem> items) {
 		this.id = generateId();
 		this.customer = customer;
-		this.items = items;
+		this.items = new ArrayList<>();
+
+		for (CartItem cartItem : items) {
+			OrderItem orderItem = new OrderItem(cartItem.getProduct(), cartItem.getQuantity());
+			this.items.add(orderItem);
+		}
+
 		this.orderDate = new Date();
 		this.isPaid = false;
 	}

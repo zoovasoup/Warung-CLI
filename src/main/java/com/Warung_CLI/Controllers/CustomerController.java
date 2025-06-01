@@ -79,12 +79,12 @@ public class CustomerController {
     public void customerMenu() {
         System.out.println("\n==== MENU CUSTOMER ====");
         System.out.println("1. Lihat semua produk");
-        System.out.println("3. Tambah produk ke keranjang");
-        System.out.println("4. Lihat keranjang");
-        System.out.println("5. Hapus produk dari keranjang");
-        System.out.println("6. Checkout");
-        System.out.println("7. Lihat riwayat pesanan");
-        System.out.println("8. Logout");
+        System.out.println("2. Tambah produk ke keranjang");
+        System.out.println("3. Lihat keranjang");
+        System.out.println("4. Hapus produk dari keranjang");
+        System.out.println("5. Checkout");
+        System.out.println("6. Lihat riwayat pesanan");
+        System.out.println("7. Logout");
         System.out.print("Pilih opsi: ");
     }
 

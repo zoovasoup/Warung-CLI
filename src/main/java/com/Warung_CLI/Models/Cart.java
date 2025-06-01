@@ -6,11 +6,8 @@ import com.Warung_CLI.Models.Payment.Payment;
 
 public class Cart {
 	private ArrayList<CartItem> items = new ArrayList<>();
-	private Payment payment;
 
-	public Cart(ArrayList<CartItem> items, Payment payment) {
-		this.items = items;
-		this.payment = payment;
+	public Cart() {
 	}
 
 	public ArrayList<CartItem> getItems() {
@@ -27,14 +24,6 @@ public class Cart {
 			totalPrice += item.getProduct().getPrice() * item.getQuantity();
 		}
 		return totalPrice;
-	}
-
-	public Payment getPayment() {
-		return payment;
-	}
-
-	public void setPayment(Payment payment) {
-		this.payment = payment;
 	}
 
 	public void addItem(CartItem item) {

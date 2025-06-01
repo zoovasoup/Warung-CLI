@@ -10,6 +10,7 @@ public class OrderRepo implements RepoInterface<Order> {
 	private HashMap<String, Order> database;
 
 	public OrderRepo() {
+		this.database = new HashMap<>();
 	};
 
 	@Override
