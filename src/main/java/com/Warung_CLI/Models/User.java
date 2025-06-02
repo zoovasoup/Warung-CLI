@@ -63,7 +63,9 @@ public abstract class User {
 
 	@Override
 	public String toString() {
-		return "User [name=" + name + ", username=" + username + ", password=" + password + "]";
+		return "======= DATA USER =======\n" +
+				"Nama     : " + name + "\n" +
+				"Username : " + username + "\n" +
+				"Password : " + password + "\n";
 	}
-
 }

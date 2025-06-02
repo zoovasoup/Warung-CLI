@@ -50,8 +50,10 @@ public class Seller extends User {
 
 	@Override
 	public String toString() {
-		return super.toString() + "Seller [storeName=" + storeName + ", storeDescription=" + storeDescription
-				+ ", products=" + products
-				+ "]";
+		return super.toString() + "\n======= DATA TOKO =======\n" +
+				"Nama Toko      : " + storeName + "\n" +
+				"Deskripsi Toko : " + storeDescription + "\n" +
+				"Jumlah Produk  : " + (products != null ? products.size() : 0) + "\n" +
+				"==========================";
 	}
 }

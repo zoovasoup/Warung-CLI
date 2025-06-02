@@ -74,17 +74,26 @@ public class CustomerService {
 
     public void seeCart(Customer customer) {
         Cart cart = customer.getCart();
-        if (cart.getItems().isEmpty()) {
+        if (cart == null || cart.getItems().isEmpty()) {
+            System.out.println("%n======= KERANJANG =======");
             System.out.println("Keranjang belanja Anda kosong.");
+            System.out.println("==========================");
             return;
         }
 
-        System.out.println("Isi keranjang belanja Anda:");
+        System.out.println("======= KERANJANG BELANJA =======");
+        System.out.printf("%-20s %-10s %-10s%n", "Produk", "Qty", "Total");
+
         for (CartItem item : cart.getItems()) {
-            System.out.printf("- %s: %d pcs, Total: %.2f%n", item.getProduct().getTitle(), item.getQuantity(),
+            System.out.printf("%-20s %-10d Rp%.2f%n",
+                    item.getProduct().getTitle(),
+                    item.getQuantity(),
                     item.getTotalPrice());
         }
-        System.out.printf("Total harga: %d%n", cart.getTotalPrice());
+
+        System.out.println("----------------------------------");
+        System.out.printf("TOTAL HARGA : Rp%d%n", cart.getTotalPrice());
+        System.out.println("==================================");
     }
 
     public void removeFromCart(Customer customer, String productId) {

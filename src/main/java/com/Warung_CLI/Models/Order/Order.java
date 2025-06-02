@@ -73,8 +73,13 @@ public class Order {
 
 	@Override
 	public String toString() {
-		return "id: " + id + ", customer: " + customer + ", items: " + items + ", orderDate: " + orderDate
-				+ ", isPaid: " + isPaid;
+		return "======= DATA PESANAN =======\n" +
+				"ID Pesanan   : " + id + "\n" +
+				"Pelanggan    : " + (customer != null ? customer.getUsername() : "null") + "\n" +
+				"Tanggal      : " + orderDate + "\n" +
+				"Status Bayar : " + (isPaid ? "Sudah dibayar" : "Belum dibayar") + "\n" +
+				"Jumlah Item  : " + (items != null ? items.size() : 0) + "\n" +
+				"Total Harga  : " + getTotalAmount() + "\n" +
+				"=============================";
 	}
-
 }

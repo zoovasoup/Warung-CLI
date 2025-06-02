@@ -42,7 +42,9 @@ public class Customer extends User {
 
 	@Override
 	public String toString() {
-		return super.toString() + "Customer [cart=" + cart + ", history=" + history + "]";
+		return super.toString() + "\n======= DATA CUSTOMER =======\n" +
+				"Isi Keranjang   : " + (cart != null ? cart.getItems().size() : 0) + " item\n" +
+				"Total Pesanan   : " + (history != null ? history.getOrders().size() : 0) + "\n" +
+				"==============================";
 	}
-
 }
