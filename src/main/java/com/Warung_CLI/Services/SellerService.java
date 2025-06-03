@@ -42,15 +42,23 @@ public class SellerService {
         }
     }
 
-    public void deleteProduct(String sellerId, String productId) {
+    public boolean deleteProduct(String sellerId, String productId) {
         Seller seller = sellerRepo.getById(sellerId);
-        ArrayList<Product> products = seller.getProducts();
 
         if (seller != null) {
-            products.removeIf(product -> product.getId().equals(productId));
-            seller.setProducts(products);
-            sellerRepo.patch(sellerId, seller);
-            System.out.println("Produk dengan Id " + productId + " berhasil dihapus.");
+            ArrayList<Product> products = seller.getProducts();
+            boolean removed = products.removeIf(product -> product.getId().equals(productId));
+            if (removed) {
+                seller.setProducts(products);
+                sellerRepo.patch(sellerId, seller);
+                System.out.println("Produk dengan ID " + productId + " berhasil dihapus.");
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            System.out.println("Seller tidak ditemukan.");
+            return false;
         }
     }
 

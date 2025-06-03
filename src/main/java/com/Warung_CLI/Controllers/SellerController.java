@@ -1,6 +1,7 @@
 package com.Warung_CLI.Controllers;
 
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import com.Warung_CLI.Models.Product;
@@ -8,9 +9,6 @@ import com.Warung_CLI.Models.Seller;
 import com.Warung_CLI.Models.Order.Order;
 import com.Warung_CLI.Services.SellerService;
 
-/**
- * SellerController
- */
 public class SellerController {
     private final SellerService sellerService;
     private String sellerId = null;
@@ -24,41 +22,40 @@ public class SellerController {
         this.sellerId = seller.getId();
 
         while (true) {
-            sellerMenu();
-            int choice = sc.nextInt();
-            sc.nextLine();
-            switch (choice) {
-                case 1:
-                    ArrayList<Product> allProduct = sellerService.getAllProduct(sellerId);
-                    for (Product product : allProduct) {
-                        System.out.println(product.toString());
-                    }
-                    break;
+            try {
+                sellerMenu();
+                int choice = Integer.parseInt(sc.nextLine().trim());
 
-                case 2:
-                    addProductMenu();
-                    break;
+                switch (choice) {
+                    case 1:
+                        lihatSemuaProduk();
+                        break;
 
-                case 3:
-                    deleteProductMenu();
-                    break;
+                    case 2:
+                        addProductMenu();
+                        break;
 
-                case 4:
-                    for (Order order : sellerService.getOrdersForSeller(sellerId)) {
-                        System.out.println(order.toString());
-                    }
-                    break;
-                case 5:
-                    System.out.println("Kembali ke menu utama.");
-                    return; // Exit the loop and return to the main menu
-                default:
-                    System.out.println("Pilihan tidak valid. Silakan coba lagi.");
+                    case 3:
+                        deleteProductMenu();
+                        break;
+
+                    case 4:
+                        lihatPesananDariCustomer();
+                        break;
+
+                    case 5:
+                        System.out.println("Kembali ke menu utama.");
+                        return;
+
+                    default:
+                        System.out.println("❌ Pilihan tidak valid. Silakan masukkan angka dari 1-5.");
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("❌ Input harus berupa angka. Silakan coba lagi.");
+            } catch (Exception e) {
+                System.out.println("❌ Terjadi kesalahan: " + e.getMessage());
             }
         }
-    }
-
-    public void addProduct() {
-        addProductMenu();
     }
 
     private void sellerMenu() {
@@ -71,51 +68,91 @@ public class SellerController {
         System.out.print("Pilih opsi: ");
     }
 
+    private void lihatSemuaProduk() {
+        ArrayList<Product> allProduct = sellerService.getAllProduct(sellerId);
+        if (allProduct.isEmpty()) {
+            System.out.println("📦 Anda belum memiliki produk.");
+        } else {
+            for (Product product : allProduct) {
+                System.out.println(product);
+            }
+        }
+    }
+
+    private void lihatPesananDariCustomer() {
+        ArrayList<Order> orders = sellerService.getOrdersForSeller(sellerId);
+        if (orders.isEmpty()) {
+            System.out.println("📪 Belum ada pesanan masuk.");
+        } else {
+            for (Order order : orders) {
+                System.out.println(order);
+            }
+        }
+    }
+
     private void addProductMenu() {
         Scanner scanner = new Scanner(System.in);
 
-        System.out.println("\n==== TAMBAH PRODUK ====");
-        System.out.print("Masukkan nama produk: ");
-        String name = scanner.nextLine();
-
-        System.out.print("Masukkan deskripsi produk: ");
-        String description = scanner.nextLine();
-
-        System.out.print("Masukkan harga produk: ");
-        double price = 0;
         try {
-            price = Double.parseDouble(scanner.nextLine());
+            System.out.println("\n==== TAMBAH PRODUK ====");
+            System.out.print("Masukkan nama produk: ");
+            String name = scanner.nextLine().trim();
+
+            if (name.isEmpty())
+                throw new IllegalArgumentException("Nama produk tidak boleh kosong.");
+
+            System.out.print("Masukkan deskripsi produk: ");
+            String description = scanner.nextLine().trim();
+
+            System.out.print("Masukkan harga produk: ");
+            double price = Double.parseDouble(scanner.nextLine().trim());
+            if (price <= 0)
+                throw new IllegalArgumentException("Harga harus lebih dari 0.");
+
+            System.out.print("Masukkan kategori produk: ");
+            String category = scanner.nextLine().trim();
+
+            System.out.print("Masukkan stok produk: ");
+            int stock = Integer.parseInt(scanner.nextLine().trim());
+            if (stock < 0)
+                throw new IllegalArgumentException("Stok tidak boleh negatif.");
+
+            Product newProduct = new Product(name, description, price, category, stock);
+            sellerService.addProduct(sellerId, newProduct);
+
+            System.out.println("✅ Produk berhasil ditambahkan:");
+            System.out.println(newProduct);
+
         } catch (NumberFormatException e) {
-            System.out.println("Harga tidak valid. Produk tidak ditambahkan.");
-            return;
+            System.out.println("❌ Format angka tidak valid. Harap masukkan angka yang benar.");
+        } catch (IllegalArgumentException e) {
+            System.out.println("❌ " + e.getMessage());
+        } catch (Exception e) {
+            System.out.println("❌ Terjadi kesalahan: " + e.getMessage());
         }
-
-        System.out.print("Masukkan kategori produk: ");
-        String category = scanner.nextLine();
-
-        System.out.print("Masukkan stok produk: ");
-        int stock = 0;
-        try {
-            stock = Integer.parseInt(scanner.nextLine());
-        } catch (NumberFormatException e) {
-            System.out.println("Stok tidak valid. Produk tidak ditambahkan.");
-            return;
-        }
-
-        Product newProduct = new Product(name, description, price, category, stock);
-        sellerService.addProduct(sellerId, newProduct);
-
-        System.out.println("Produk berhasil ditambahkan:");
-        System.out.println(newProduct);
     }
 
     private void deleteProductMenu() {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("\n==== HAPUS PRODUK ====");
-        System.out.print("Masukkan ID produk yang ingin dihapus: ");
-        String productId = scanner.nextLine();
-        sellerService.deleteProduct(sellerId, productId);
-        // Add logic to read product ID
-        // Logic to delete the product using sellerService
+
+        try {
+            System.out.println("\n==== HAPUS PRODUK ====");
+            System.out.print("Masukkan ID produk yang ingin dihapus: ");
+            String productId = scanner.nextLine().trim();
+
+            if (productId.isEmpty())
+                throw new IllegalArgumentException("ID produk tidak boleh kosong.");
+
+            boolean success = sellerService.deleteProduct(sellerId, productId);
+            if (success) {
+                System.out.println("✅ Produk berhasil dihapus.");
+            } else {
+                System.out.println("❌ Produk dengan ID tersebut tidak ditemukan.");
+            }
+        } catch (IllegalArgumentException e) {
+            System.out.println("❌ " + e.getMessage());
+        } catch (Exception e) {
+            System.out.println("❌ Terjadi kesalahan: " + e.getMessage());
+        }
     }
 }

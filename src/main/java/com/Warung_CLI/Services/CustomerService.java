@@ -75,7 +75,7 @@ public class CustomerService {
     public void seeCart(Customer customer) {
         Cart cart = customer.getCart();
         if (cart == null || cart.getItems().isEmpty()) {
-            System.out.println("%n======= KERANJANG =======");
+            System.out.println("\n======= KERANJANG =======");
             System.out.println("Keranjang belanja Anda kosong.");
             System.out.println("==========================");
             return;
