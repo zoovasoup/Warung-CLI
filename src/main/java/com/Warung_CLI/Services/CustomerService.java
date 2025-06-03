@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import com.Warung_CLI.Exeptions.OutOfStockException;
 import com.Warung_CLI.Models.Cart;
 import com.Warung_CLI.Models.CartItem;
 import com.Warung_CLI.Models.Customer;
@@ -40,11 +41,10 @@ public class CustomerService {
         return allProducts;
     }
 
-    public void addToCart(Customer customer, Product product, int quantity) {
+    public void addToCart(Customer customer, Product product, int quantity) throws OutOfStockException {
 
         if (product.getQuantity() < quantity) {
-            System.out.println("Stok tidak cukup untuk produk: " + product.getTitle());
-            return;
+            throw new OutOfStockException("Stok tidak cukup untuk produk: " + product.getTitle());
         }
 
         if (customer.getCart() == null) {
