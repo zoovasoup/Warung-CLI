@@ -3,6 +3,7 @@ package com.Warung_CLI.Controllers;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+import com.Warung_CLI.Exeptions.InvalidCredentialsException;
 import com.Warung_CLI.Models.Customer;
 import com.Warung_CLI.Models.Seller;
 import com.Warung_CLI.Models.User;
@@ -55,7 +56,7 @@ public class AuthController {
         }
     }
 
-    public User loginRoute() {
+    public User loginRoute() throws InvalidCredentialsException {
         Scanner scanner = new Scanner(System.in);
 
         while (true) {
@@ -79,9 +80,8 @@ public class AuthController {
                         if (customer != null && customer instanceof Customer) {
                             return customer;
                         } else {
-                            System.out.println("Username/password salah atau bukan customer.");
+                            throw new InvalidCredentialsException("Username/password salah atau bukan customer.");
                         }
-                        break;
 
                     case 2:
                         System.out.print("Username: ");
@@ -93,9 +93,8 @@ public class AuthController {
                         if (seller != null && seller instanceof Seller) {
                             return seller;
                         } else {
-                            System.out.println("Username/password salah atau bukan seller.");
+                            throw new InvalidCredentialsException("Username/password salah atau bukan customer.");
                         }
-                        break;
 
                     case 3:
                         return null;
@@ -106,6 +105,8 @@ public class AuthController {
             } catch (InputMismatchException e) {
                 System.out.println("Input harus berupa angka.");
                 scanner.nextLine(); // Clear input buffer
+            } catch (InvalidCredentialsException e) {
+                System.out.println("❌ " + e.getMessage());
             } catch (Exception e) {
                 System.out.println("Terjadi kesalahan saat login: " + e.getMessage());
             }

@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Scanner;
 
 import com.Warung_CLI.Exeptions.OutOfStockException;
+import com.Warung_CLI.Exeptions.ProductNotFoundException;
 import com.Warung_CLI.Models.Customer;
 import com.Warung_CLI.Models.Product;
 import com.Warung_CLI.Models.Order.Order;
@@ -80,7 +81,7 @@ public class CustomerController {
         }
     }
 
-    private void tambahProdukKeKeranjang(Scanner scanner, Customer customer) {
+    private void tambahProdukKeKeranjang(Scanner scanner, Customer customer) throws ProductNotFoundException {
         try {
             System.out.print("Masukkan ID produk: ");
             String productId = scanner.nextLine().trim();
@@ -98,8 +99,7 @@ public class CustomerController {
                     .orElse(null);
 
             if (product == null) {
-                System.out.println("❌ Produk tidak ditemukan.");
-                return;
+                throw new ProductNotFoundException("Produk dengan ID " + productId + " tidak ditemukan.");
             }
 
             customerService.addToCart(customer, product, quantity);
@@ -110,6 +110,8 @@ public class CustomerController {
         } catch (OutOfStockException e) {
             System.out.println("❌ " + e.getMessage());
         } catch (IllegalArgumentException e) {
+            System.out.println("❌ " + e.getMessage());
+        } catch (ProductNotFoundException e) {
             System.out.println("❌ " + e.getMessage());
         } catch (Exception e) {
             System.out.println("❌ Terjadi kesalahan: " + e.getMessage());

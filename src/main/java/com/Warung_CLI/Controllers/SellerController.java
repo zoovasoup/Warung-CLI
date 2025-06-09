@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+import com.Warung_CLI.Exeptions.ProductNotFoundException;
 import com.Warung_CLI.Models.Product;
 import com.Warung_CLI.Models.Seller;
 import com.Warung_CLI.Models.Order.Order;
@@ -132,7 +133,7 @@ public class SellerController {
         }
     }
 
-    private void deleteProductMenu() {
+    private void deleteProductMenu() throws ProductNotFoundException {
         Scanner scanner = new Scanner(System.in);
 
         try {
@@ -147,9 +148,11 @@ public class SellerController {
             if (success) {
                 System.out.println("✅ Produk berhasil dihapus.");
             } else {
-                System.out.println("❌ Produk dengan ID tersebut tidak ditemukan.");
+                throw new ProductNotFoundException("Produk dengan ID " + productId + " tidak ditemukan.");
             }
         } catch (IllegalArgumentException e) {
+            System.out.println("❌ " + e.getMessage());
+        } catch (ProductNotFoundException e) {
             System.out.println("❌ " + e.getMessage());
         } catch (Exception e) {
             System.out.println("❌ Terjadi kesalahan: " + e.getMessage());

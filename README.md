@@ -1,4 +1,4 @@
-# Java CLI App – Autentikasi & Manajemen Pengguna
+# Java CLI App – Warung E-Commerce
 
 ## 📌 Deskripsi Program
 
