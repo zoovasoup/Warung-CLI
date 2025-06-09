@@ -2,8 +2,6 @@ package com.Warung_CLI.Models;
 
 import java.util.ArrayList;
 
-import com.Warung_CLI.Models.Payment.Payment;
-
 public class Cart {
 	private ArrayList<CartItem> items = new ArrayList<>();
 
